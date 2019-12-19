@@ -1,0 +1,16 @@
+#include <iostream>
+#include <cstring>
+#include "node.h"
+#include "student.h"
+
+using namespace std;
+
+void add(Student*, Node**);
+void print(Node*, Node*);
+
+int main()
+{
+  Node* head;
+  add(new Student("Gregory", "Feng", 1, 1.0), &head);
+  print(head, head);
+}
