@@ -5,35 +5,35 @@
 
 using namespace std;
 
-void add(Student*, Node**);
-void print(Node*, Node*);
+void add(Student*, node**);
+void print(Node*, node*);
 
 int main()
 {
-  Node* head;
-  add(new Student("Gregory", "Feng", 1, 1.0), &head);
-  print(head, head);
+  node* head;
+  //add(new Student("Gregory", "Feng", 1, 1.0), &head);
+  //print(head, head);
 }
 
-void add(Student* newStudent, Node** head)
+void add(Student* newStudent, node** head)
 {
-  Node** current = head;
+  node** current = head;
   if (*current == NULL)
   {
-    *head = new Node(newStudent);
+    *head = new node(newStudent);
   }
   else
   {
     while ((*current)->getNext() != NULL)
     {
-      Node* temp = (*current)->getNext();
+      node* temp = (*current)->getNext();
       current = &temp;
     }
-    (*current)->setNext(new Node(newStudent));
+    (*current)->setNext(new node(newStudent));
   }
 }
 
-void print(Node* next, Node* head)
+void print(node* next, node* head)
 {
   if (next == head)
   {
