@@ -5,17 +5,51 @@
 
 using namespace std;
 
-void add(Student*, node**);
-void print(Node*, node*);
+void add(student*, node**);
+void print(node*, node*);
+void strupper(char* str);
 
 int main()
 {
   node* head;
+  while (true)
+  {
+    char input[80];
+    cout << "Do you want to add a student, print out the students, delete a student, average the GPA's, or quit?" << endl;
+    cin.getline(input, sizeof(input));
+    strupper(input);
+    if (strcmp(input, "ADD") == 0)
+    {
+      add();
+      cin.ignore(999, '\n');
+    }
+    else if (strcmp(input, "PRINT") == 0)
+    {
+      print(head, head);
+    }
+    else if (strcmp(input, "DELETE") == 0)
+    {
+      delete();
+      cin.ignore(999, '\n');
+    }
+    else if (strcmp(input, "AVERAGE") == 0)
+    {
+      average();
+    }
+    else if (strcmp(input, "QUIT") == 0)
+    {
+      return false;
+    }
+    else
+    {
+      cout << "That's an invalid option." << endl;
+    }
+  }
   //add(new Student("Gregory", "Feng", 1, 1.0), &head);
   //print(head, head);
 }
 
-void add(Student* newStudent, node** head)
+void add(student* newStudent, node** head)
 {
   node** current = head;
   if (*current == NULL)
@@ -43,5 +77,27 @@ void print(node* next, node* head)
   {
     cout << "Student: " << next->getStudent()->getFirstName() << " " << next->getStudent()->getLastName() << " ID: " << next->getStudent()->getID() << " GPA: " << next->getStudent()->getGPA() << endl;
     print(next->getNext(), head);
+  }
+}
+
+void delete(vector<Student*> *vecS)
+{
+  int idInput = 0;
+  cout << "Enter the ID of the student you want to remove" << endl;
+  cin >> idInput;
+  
+}
+
+void average(node* next, node* head)
+{
+  
+}
+
+void strupper(char* str)
+{
+  int len = strlen(str);
+  for (int i = 0; i < len; i++)
+  {
+    str[i] = toupper(str[i]);
   }
 }

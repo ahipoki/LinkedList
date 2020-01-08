@@ -12,6 +12,7 @@ class student
   char* getLastName();
   int getID();
   float getGPA();
+  ~student();
  private:
   char* firstName;
   char* lastName;
