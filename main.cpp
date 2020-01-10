@@ -7,6 +7,8 @@ using namespace std;
 
 void add(student*, node**);
 void print(node*, node*);
+//void delete();
+//void average(node* node*);
 void strupper(char* str);
 
 int main()
@@ -20,7 +22,8 @@ int main()
     strupper(input);
     if (strcmp(input, "ADD") == 0)
     {
-      add();
+      cout << "Add" << endl;
+      //add(new Student("Test", "Test", 1, 1.0), &head);
       cin.ignore(999, '\n');
     }
     else if (strcmp(input, "PRINT") == 0)
@@ -29,12 +32,14 @@ int main()
     }
     else if (strcmp(input, "DELETE") == 0)
     {
-      delete();
-      cin.ignore(999, '\n');
+      cout << "Delete" << endl;
+      //delete();
+      //cin.ignore(999, '\n');
     }
     else if (strcmp(input, "AVERAGE") == 0)
     {
-      average();
+      cout << "Average" << endl;
+      //average(head, head);
     }
     else if (strcmp(input, "QUIT") == 0)
     {
@@ -80,18 +85,17 @@ void print(node* next, node* head)
   }
 }
 
-void delete(vector<Student*> *vecS)
-{
-  int idInput = 0;
-  cout << "Enter the ID of the student you want to remove" << endl;
-  cin >> idInput;
-  
-}
+//void delete()
+//{
+//int idInput = 0;
+//cout << "Enter the ID of the student you want to remove" << endl;
+//cin >> idInput;
+//}
 
-void average(node* next, node* head)
-{
-  
-}
+//void average(node* next, node* head)
+//{
+//cout << "Average" << endl;
+//}
 
 void strupper(char* str)
 {
