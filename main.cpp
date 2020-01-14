@@ -7,7 +7,7 @@ using namespace std;
 
 void add(student*, node**);
 void print(node*, node*);
-//void delete();
+void delete();
 //void average(node* node*);
 void strupper(char* str);
 
@@ -17,14 +17,16 @@ int main()
   while (true)
   {
     char input[80];
+    //add(new Student("Test", "Test", 1, 1.0), &head);
     cout << "Do you want to add a student, print out the students, delete a student, average the GPA's, or quit?" << endl;
     cin.getline(input, sizeof(input));
     strupper(input);
     if (strcmp(input, "ADD") == 0)
     {
       cout << "Add" << endl;
+      //add(student* Student, &head);
       //add(new Student("Test", "Test", 1, 1.0), &head);
-      cin.ignore(999, '\n');
+      //cin.ignore(999, '\n');
     }
     else if (strcmp(input, "PRINT") == 0)
     {
@@ -85,12 +87,12 @@ void print(node* next, node* head)
   }
 }
 
-//void delete()
-//{
-//int idInput = 0;
-//cout << "Enter the ID of the student you want to remove" << endl;
-//cin >> idInput;
-//}
+void delete()
+{
+  int idInput = 0;
+  cout << "Enter the ID of the student you want to remove" << endl;
+  cin >> idInput;
+}
 
 //void average(node* next, node* head)
 //{
