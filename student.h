@@ -1,6 +1,7 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
@@ -12,7 +13,6 @@ class student
   char* getLastName();
   int getID();
   float getGPA();
-  ~student();
  private:
   char* firstName;
   char* lastName;
