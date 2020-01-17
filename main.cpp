@@ -5,10 +5,10 @@
 
 using namespace std;
 
-void add(node*, node**);
+void add(student*, node**);
 //void add(student*, node**);
-void print(node*, node**);
-void printStudent(student* student);
+void print(node**);
+void printStudent(student*);
 void remove();
 void average();
 void strupper(char* str);
@@ -25,13 +25,13 @@ int main()
     strupper(input);
     if (strcmp(input, "ADD") == 0)
     {
-      add(head, &head);
+      //add(head, &head);
       //add(student* Student, &head);
-      //add(new Student("Test", "Test", 1, 1.0), &head);
+      add(new student("Test", "Test", 1, 1.0), &head);
     }
     else if (strcmp(input, "PRINT") == 0)
     {
-      print(head, &head);
+      print(&head);
     }
     else if (strcmp(input, "DELETE") == 0)
     {
@@ -54,25 +54,23 @@ int main()
   //print(head, head);
 }
 
-/*void add(student* newStudent, node** head)
+void add(student* newStudent, node** head)
 {
   node** current = head;
-  if (*current == NULL)
+  if (*head == NULL)
   {
     *head = new node(newStudent);
+    return;
   }
-  else
+  while ((*current)->getNext() != NULL)
   {
-    while ((*current)->getNext() != NULL)
-    {
-      node* temp = (*current)->getNext();
-      current = &temp;
-    }
-    (*current)->setNext(new node(newStudent));
+    *current = (*current)->getNext();
   }
-  }*/
+  add(newStudent, current);
+  return;
+}
 
-void add(node* next, node** head)
+/*void add(node* next, node** head)
 {
   char tempFirst[80];
   char tempLast[80];
@@ -97,7 +95,7 @@ void add(node* next, node** head)
     cout << "Test" << endl;
     print(next->getNext(), head);
   }
-}
+}*/
 
 void print(node** head)
 {
