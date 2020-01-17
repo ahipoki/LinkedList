@@ -8,12 +8,13 @@ This is the node class
 #ifndef NODE_H
 #define NODE_H
 #include<iostream>
+#include <cstring> //F
 #include"student.h"
 using namespace std;
 class node{
  public: 
   node(student*); //constructor, this takes in a student* then sets it equal to the private student*
-  //void setStudent(student* newStudent);
+  //void setStudent(student* newStudent); //F
   ~node(); //destructor,deletes student
   student* getStudent(); //returns the student that is linked to the node*
   void setNext(node*); //sets the next node
