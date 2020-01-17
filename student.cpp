@@ -31,9 +31,3 @@ float student::getGPA()
 {
   return GPA;
 }
-
-student::~student()
-{
-  delete firstName;
-  delete lastName;
-}
