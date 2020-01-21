@@ -1,21 +1,25 @@
 #include <iostream>
 #include <cstring>
+#include <math.h>
 #include "node.h"
 #include "student.h"
 
 using namespace std;
 
-void add(student*, node**);
-//void add(student*, node**);
-void print(node**);
+void add(student*, node*&);
+void print(node*);
 void printStudent(student*);
-void remove();
-void average();
+void remove(int id, node*&);
+void average(int count, float total, node*);
 void strupper(char* str);
+void commands(char[], node *&);
 
 int main()
 {
-  node* head;
+  cout.setf(ios::showpoint);
+  cout.setf(ios::fixed, ios::floatfield);
+  cout.precision(2);
+  node* head = NULL;
   while (true)
   {
     char input[80];
@@ -23,92 +27,130 @@ int main()
     cout << "Do you want to add a student, print out the students, delete a student, average the GPA's, or quit?" << endl;
     cin.getline(input, sizeof(input));
     strupper(input);
-    if (strcmp(input, "ADD") == 0)
+    if (strcmp(input, "QUIT") == 0)
     {
-      //add(head, &head);
-      //add(student* Student, &head);
-      add(new student("Test", "Test", 1, 1.0), &head);
+      return 0;
     }
-    else if (strcmp(input, "PRINT") == 0)
-    {
-      print(&head);
-    }
-    else if (strcmp(input, "DELETE") == 0)
-    {
-      remove();
-    }
-    else if (strcmp(input, "AVERAGE") == 0)
-    {
-      average();
-    }
-    else if (strcmp(input, "QUIT") == 0)
-    {
-      return false;
-    }
-    else
-    {
-      cout << "That's an invalid option." << endl;
-    }
+    commands(input, head);
   }
   //add(new Student("Gregory", "Feng", 1, 1.0), &head);
   //print(head, head);
 }
 
-void add(student* newStudent, node** head)
+void commands(char input[], node* &head)
 {
-  node** current = head;
-  if (*head == NULL)
+  if (strcmp(input, "ADD") == 0)
   {
-    *head = new node(newStudent);
-    return;
+    char first[80];
+    char last[80];
+    int id = 0;
+    float gpa = 0;
+    cout << "What is the student's first name?" << endl;
+    cin.getline(first, 80);
+    cout << "What is the student's last name?" << endl;
+    cin.getline(last, 80);
+    cout << "What is the student's ID?" << endl;
+    cin >> id;
+    cout << "What is the student's GPA?" << endl;
+    cin >> gpa;
+    add(new Student(first, last, id, gpa), head);
+    cin.ignore(999, '\n'
   }
-  while ((*current)->getNext() != NULL)
+  else if (strcmp(input, "PRINT") == 0)
   {
-    *current = (*current)->getNext();
+    print(head);
   }
-  add(newStudent, current);
-  return;
+  else if (strcmp(input, "DELETE") == 0)
+  {
+    int id = 0;
+    cout << "What is the ID of the student you want to remove?" << endl;
+    cin >> id;
+    deleteNode(id, head);
+    cin.ignore(999, '\n');
+  }
+  else if (strcmp(input, "AVERAGE") == 0)
+  {
+    average(0, 0, head);
+  }
+  else
+  {
+    cout << "That's an invalid option" << endl;
+  }
 }
 
-/*void add(node* next, node** head)
+void add(student* newStudent, node* &head)
 {
-  char tempFirst[80];
-  char tempLast[80];
-  int tempID;
-  float tempGPA;
-  cout << "What is the first name?" << endl;
-  cin.getline(tempFirst, 80);
-  strupper(tempFirst);
-  cout << "What is the last name?" << endl;
-  cin.getline(tempLast, 80);
-  strupper(tempLast);
-  cout << "What is the ID?" << endl;
-  cin >> tempID;
-  cout << "What is the GPA?" << endl;
-  cin >> tempGPA;
-  if (next == head)
+  //node** current = head;
+  if (head == NULL)
   {
-    cout << "Add: " << endl;
+    head = new node(newStudent);
+    return;
   }
-  if (next != NULL)
+  if (newStudent->getID() < head->getStudent()->getID())
   {
-    cout << "Test" << endl;
-    print(next->getNext(), head);
+    node* temp = new node(newStudent);
+    temp->setNext(head);
+    head = temp;
+    return;
   }
-}*/
+  if (head->getNext() != NULL)
+  {
+    if (newStudent->getID() < head->getNext()->getStudent()->getID())
+    {
+      node* temp = new node(newStudent);
+      temp->setNext(head->getNext());
+      head->setNext(temp);
+      return;
+    }
+  }
+  else
+  {
+    head->setNext(new node(newStudent));
+    return;
+  }
+  node* next = head->getNext();
+  add(newStudent, next);
+}
 
-void print(node** head)
+void remove(int id, node* &head)
 {
-  node** next = head;
-  if (*head == *next)
+  if (head == NULL)
   {
-    cout << "List: " << endl;
+    cout << "The list is empty" << endl;
+    return;
   }
-  if (*next != NULL)
+  if (head->getStudent()->getID() == id)
   {
-    printStudent((*next)->getStudent());
-    node** temp = (*next)->getNext();
-    print(&temp);
+    node* temp = head->getNext();
+    delete head;
+    head = temp;
+    return;
+  }
+  if (head->getNext() != NULL)
+  {
+    if (head->getNext()->getStudent()->getID() == id)
+    {
+      node* temp = head->getNext();
+      head->setNext(head->getNext()->getNext());
+      delete temp;
+      return;
+    }
+  }
+  else
+  {
+    cout << "That ID wasn't found" << endl;
+    return;
+  }
+  node* next = head->getNext();
+  return remove(id, next);
+}
+               
+void print(node* head)
+{
+  if (head != NULL)
+  {
+    printStudent(head->getStudent());
+    print(head->getNext());
   }
 }
 
@@ -117,30 +159,17 @@ void printStudent(student* student)
   cout << "Student: " << student->getFirstName() << " " << student->getLastName() << ", ID: " << student->getID() << ", GPA: " << endl;
 }
 
-/*void print(node* next, node** head)
+void average(int count, float total, node* head)
 {
-  if (next == head)
+  if (head != NULL)
   {
-    cout << "List:" << endl;
+    average(++count, total+head->getStudent()->getGPA(), head->getNext());
   }
-  if (next != NULL)
+  else
   {
-    cout << "Student: " << next->getStudent()->getFirstName() << " " << next->getStudent()->getLastName() << " ID: " << next->getStudent()->getID() << " GPA: " << next->getStudent()->getGPA() << endl;
-    print(next->getNext(), head);
+    cout << "Average GPA: " << total/count << endl;
+    return;
   }
-  }*/
-
-void remove()
-{
-  int idInput = 0;
-  cout << "Enter the ID of the student you want to remove" << endl;
-  cin >> idInput;
-  cout << "You want to delete: " << idInput << endl;
-}
-
-void average()
-{
-  cout << "Average: " << endl;
 }
 
 void strupper(char* str)
