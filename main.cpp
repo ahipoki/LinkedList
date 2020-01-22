@@ -53,8 +53,8 @@ void commands(char input[], node* &head)
     cin >> id;
     cout << "What is the student's GPA?" << endl;
     cin >> gpa;
-    add(new Student(first, last, id, gpa), head);
-    cin.ignore(999, '\n'
+    add(new student(first, last, id, gpa), head);
+    cin.ignore(999, '\n');
   }
   else if (strcmp(input, "PRINT") == 0)
   {
@@ -65,7 +65,7 @@ void commands(char input[], node* &head)
     int id = 0;
     cout << "What is the ID of the student you want to remove?" << endl;
     cin >> id;
-    deleteNode(id, head);
+    remove(id, head);
     cin.ignore(999, '\n');
   }
   else if (strcmp(input, "AVERAGE") == 0)
