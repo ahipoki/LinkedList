@@ -7,52 +7,74 @@
 using namespace std;
 
 void add(student*, node*&);
+//Add prototype
 void print(node*);
+//Print prototype
 void printStudent(student*);
+//Print student prototype
 void remove(int id, node*&);
+//Remove node prototype
 void average(int count, float total, node*);
+//Average prototype
 void strupper(char* str);
+//Make input uppercase prototype
 void commands(char[], node *&);
+//Commands prototype
 
 int main()
 {
   cout.setf(ios::showpoint);
+  //Makes cout print
   cout.setf(ios::fixed, ios::floatfield);
+  //Makes cout print out a fixed number of decimals for floats
   cout.precision(2);
+  //Make that number 2
   node* head = NULL;
+  //The head
   while (true)
-  {
+  {//While running
     char input[80];
-    //add(new Student("Test", "Test", 1, 1.0), &head);
+    //Input
     cout << "Do you want to add a student, print out the students, delete a student, average the GPA's, or quit?" << endl;
+    //Ask if they want to add, print, delete, average, or quit
     cin.getline(input, sizeof(input));
+    //Get their input
     strupper(input);
+    //Make it uppercase
     if (strcmp(input, "QUIT") == 0)
-    {
+    {//If they want to quit
       return 0;
+      //Quit
     }
     commands(input, head);
+    //If it's anything else, go to the commands
   }
-  //add(new Student("Gregory", "Feng", 1, 1.0), &head);
-  //print(head, head);
 }
 
 void commands(char input[], node* &head)
-{
+{//Commands
   if (strcmp(input, "ADD") == 0)
-  {
+  {//If they want to add
     char first[80];
+    //First name
     char last[80];
-    int id = 0;
-    float gpa = 0;
+    //Last name
+    int ID = 0;
+    //ID
+    float GPA = 0;
+    //GPA
     cout << "What is the student's first name?" << endl;
+    //Ask for the student's first name
     cin.getline(first, 80);
+    //Take in their input
     cout << "What is the student's last name?" << endl;
+    //Ask for the student's last name
     cin.getline(last, 80);
+    //Take in their input
     cout << "What is the student's ID?" << endl;
-    cin >> id;
+    cin >> ID;
     cout << "What is the student's GPA?" << endl;
-    cin >> gpa;
+    cin >> GPA;
     add(new student(first, last, id, gpa), head);
     cin.ignore(999, '\n');
   }
